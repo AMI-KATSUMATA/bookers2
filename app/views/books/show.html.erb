@@ -1,0 +1,46 @@
+<div>User info
+   <%= attachment_image_tag @book, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg" %>
+  <p><%= @book.user.name %></p>
+  <p><%= @book.user.introduction %></p>
+</div>
+
+
+<!--プロフィール編集へのリンク-->
+<div>
+ <%= link_to "プロフィール編集", edit_user_path(@user) %>
+</div>
+
+<!--新規投稿フォーム-->
+<h1>New Books</h1>
+<%= form_with model: @book, local:true do |f| %>
+  <h4>Title</h4>
+  <%= f.text_field :title %>
+  <h4>Opinion</h4>
+  <%= f.text_area :body %>
+  <%= f.submit 'Create Book' %>
+<% end %>
+
+
+
+
+<table>Book detail
+<tr>
+  <!--トプ画とユーザーネーム-->
+  <!--ユーザーネームからマイページへリンク-->
+  <td>
+     <%= attachment_image_tag @book, :image %>
+     <%= @book.user.name %>
+  </td>
+  
+  <!--本のタイトル-->
+  <td>
+    <%= @book.title %>
+  </td>
+  
+  <!--本文-->
+  <td>
+    <%= @book.body %>
+  </td>
+</tr>
+  
+</table>
