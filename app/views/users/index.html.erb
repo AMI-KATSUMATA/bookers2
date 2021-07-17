@@ -1,9 +1,16 @@
 <div>User info
    <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
-  <p><%= @user.name %></p>
-  <p><%= @user.introduction %></p>
-</div>
-
+  <table>
+   <tr>
+    <th>name</th>
+    <td><%= @user.name %></td>
+   </tr>
+   <tr>
+    <th>introduction</th>
+    <td><%= @user.introduction %></td>
+   </tr>
+  </table>
+ </div>
 
 <!--プロフィール編集へのリンク-->
 <div>
@@ -12,7 +19,7 @@
 
 <!--新規投稿フォーム-->
 <h1>New Books</h1>
-<%= form_with model: @book, local:true do |f| %>
+<%= form_with model: @new, local:true do |f| %>
   <h4>Title</h4>
   <%= f.text_field :title %>
   <h4>Opinion</h4>
@@ -38,7 +45,7 @@
   <tr>
     <!--トプ画-->
    <td>
-   <%= attachment_image_tag user, :image, :fill, 100, 100, fallback: "no_image.jpg" %>
+   <%= attachment_image_tag user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg" %>
    </td>
      <!--ユーザーネーム-->
    <td>
@@ -46,7 +53,7 @@
    </td>
   <!--マイページへのリンク-->
    <td>
-    <%= link_to "Show", user_path(@user) %>
+    <%= link_to "Show", user_path(user.id) %>
    </td>
   </tr>
 </table>

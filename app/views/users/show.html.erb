@@ -1,10 +1,17 @@
 <div>User info
    <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
-  <p><%= @user.name %></p>
-  <p><%= @user.introduction %></p>
-</div>
-
-
+  <table>
+   <tr>
+    <th>name</th>
+    <td><%= @user.name %></td>
+   </tr>
+   <tr>
+    <th>introduction</th>
+    <td><%= @user.introduction %></td>
+   </tr>
+  </table>
+ </div>
+ 
 <!--プロフィール編集へのリンク-->
 <div>
  <%= link_to "プロフィール編集", edit_user_path(@user) %>
@@ -12,7 +19,7 @@
 
 <!--新規投稿フォーム-->
 <h1>New Books</h1>
-<%= form_with model: @book, local:true do |f| %>
+<%= form_with model: @new, local:true do |f| %>
   <h4>Title</h4>
   <%= f.text_field :title %>
   <h4>Opinion</h4>
@@ -29,7 +36,7 @@
 </tr>
 
  <tr>
-  <td><%= book.title %></td>
+  <td><%= link_to book.title, book_path(book.id) %></td>
   <td><%= book.body %></td>
  </tr>
 </table>

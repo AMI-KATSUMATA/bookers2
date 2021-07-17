@@ -1,9 +1,16 @@
 <div>User info
-   <%= attachment_image_tag @book, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg" %>
-  <p><%= @book.user.name %></p>
-  <p><%= @book.user.introduction %></p>
-</div>
-
+   <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
+  <table>
+   <tr>
+    <th>name</th>
+    <td><%= @user.name %></td>
+   </tr>
+   <tr>
+    <th>introduction</th>
+    <td><%= @user.introduction %></td>
+   </tr>
+  </table>
+ </div>
 
 <!--プロフィール編集へのリンク-->
 <div>
@@ -12,7 +19,7 @@
 
 <!--新規投稿フォーム-->
 <h1>New Books</h1>
-<%= form_with model: @book, local:true do |f| %>
+<%= form_with model: @new, local:true do |f| %>
   <h4>Title</h4>
   <%= f.text_field :title %>
   <h4>Opinion</h4>
@@ -28,19 +35,28 @@
   <!--トプ画とユーザーネーム-->
   <!--ユーザーネームからマイページへリンク-->
   <td>
-     <%= attachment_image_tag @book, :image %>
-     <%= @book.user.name %>
+     <%= attachment_image_tag @user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg" %>
+     <%= link_to @book.user.name, user_path(@book.id) %>
   </td>
-  
+
   <!--本のタイトル-->
+  <!--タイトルから投稿詳細へリンク-->
   <td>
-    <%= @book.title %>
+    <%= link_to @book.title, book_path(@book) %>
   </td>
-  
+
   <!--本文-->
   <td>
     <%= @book.body %>
   </td>
+
+  <!--投稿編集・削除リンク-->
+  <% if @book.user == current_user %>
+  <td>
+    <%= link_to "Edit", edit_book_path(@book) %>
+    <%= link_to "Destroy", book_path(@book), method: :delete, "data-confirm" => "本当に削除しますか？" %>
+  </td>
 </tr>
-  
+  <% end %>
+
 </table>

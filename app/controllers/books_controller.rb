@@ -1,53 +1,55 @@
 class BooksController < ApplicationController
-  
+
   def index
+    @user = User.find(current_user.id)
+    @new = Book.new
     @books = Book.all
-    @user = User.find(params[:id])
-    @book = Book.new
   end
-  
+
   def show
+   @user = User.find(current_user.id)
+    @new = Book.new
     @book = Book.find(params[:id])
-    @book = Book.new
   end
-  
+
   def create
-    @book = Book.new(book_params)
-    @book.user_id = current_user.id
-    @book.save
+    @new = Book.new(book_params)
+    @new.user_id = current_user.id
+    if @new.save
   # 投稿詳細へリダイレクト
-    redirect_to book_path(@book)
+    redirect_to book_path(@new), notice: 'You have created book successfully.'
+    else
+      @user = User.find(current_user.id)
+      @books = Book.all
+      render :index
+    end
   end
-  
+
   def edit
     @book = Book.find(params[:id])
   end
-  
+
    def update
-    @book = User.find(params[:id])
-    @book.update(book_params)
+    @book = Book.find(params[:id])
+    if @book.update(book_params)
     # 投稿詳細ページへのリンク
-    redirect_to book_path(@book.id)
+    redirect_to books_path(@book.id), notice: 'You have updated book successfully.'
+    else
+     render :edit
+    end
    end
-  
+
   def destroy
     @book = Book.find(params[:id])
     @book.destroy
     # 投稿一覧にリンク
     redirect_to books_path
   end
-  
-  
+
+
   private
 
-  def user_params
-    params.require(:user).permit(:name, :profile_image, :introduction)
+  def book_params
+    params.require(:book).permit(:title, :body)
   end
-
-　def book_params
-　  params.require(:book).permit(:title, :body, :user_id)
-　end
-
 end
-
-

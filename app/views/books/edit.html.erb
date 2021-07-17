@@ -1,10 +1,20 @@
+<!--エラーメッセージ-->
+<% if @book.errors.any? %>
+  <%= @book.errors.count %>errors prohibited this obj from being saved:
+  <% @book.errors.full_messages.each do |message| %>
+  <ul>
+    <li><%= message %></li>
+  </ul>
+  <% end %>
+<% end %>
+
 <h2>Editing Book</h2>
 <%= form_with model:@book, local:true do |f| %>
   <label for="inputTitle">Title</label>
   <%= f.text_field :title, autofocus: true, id:"inputTitle", placeholder:"タイトル"%>
- 
+
   <label for="inputBody">Opinion</label>
-  <%= f.text_field :body, autofocus: true, id:"inputBody", placeholder:"本文"%> 
+  <%= f.text_field :body, autofocus: true, id:"inputBody", placeholder:"本文"%>
   <%= f.submit "Update Book" %>
 <% end %>
 
