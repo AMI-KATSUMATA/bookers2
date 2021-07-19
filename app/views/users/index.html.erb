@@ -1,60 +1,47 @@
-<div>User info
-   <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
-  <table>
-   <tr>
-    <th>name</th>
-    <td><%= @user.name %></td>
-   </tr>
-   <tr>
-    <th>introduction</th>
-    <td><%= @user.introduction %></td>
-   </tr>
-  </table>
- </div>
+<div class="container px-5 px-sm-0">
+ <div class="row">
+ <!--部分テンプレ-->
+  <div class="col-md-3">
+   <%= render 'layouts/info', user: @user %>
+   <%= render 'layouts/new', new: @new %>
+  </div>
 
-<!--プロフィール編集へのリンク-->
-<div>
- <%= link_to "プロフィール編集", edit_user_path(@user) %>
-</div>
+ <!--ユーザー一覧-->
+  <div class="col-md-8 offset-md-1">
+   <h2>Users</h2>
+   <table class="table" >
+    <thead>
+     <tr>
+      <th>
+       image
+      </th>
+      <th>
+       name
+      </th>
+      <th>
 
-<!--新規投稿フォーム-->
-<h1>New Books</h1>
-<%= form_with model: @new, local:true do |f| %>
-  <h4>Title</h4>
-  <%= f.text_field :title %>
-  <h4>Opinion</h4>
-  <%= f.text_area :body %>
-  <%= f.submit 'Create Book' %>
-<% end %>
-
-<!--ユーザー一覧-->
-<% @users.each do |user| %>
-<table>
-  <tr>
-   <th>
-    image
-   </th>
-   <th>
-    name
-   </th>
-   <th>
-    
-   </th>
-  </tr>
-  
-  <tr>
-    <!--トプ画-->
-   <td>
-   <%= attachment_image_tag user, :profile_image, :fill, 100, 100, fallback: "no_image.jpg" %>
-   </td>
+      </th>
+     </tr>
+    </thead>
+    <tbody>
+    <% @users.each do |user| %>
+     <tr>
+     <!--トプ画-->
+      <td>
+       <%= attachment_image_tag user, :profile_image, :fill, 40, 40, fallback: "no_image.jpg", size:'40x40' %>
+      </td>
      <!--ユーザーネーム-->
-   <td>
-    <%= user.name %>
-   </td>
-  <!--マイページへのリンク-->
-   <td>
-    <%= link_to "Show", user_path(user.id) %>
-   </td>
-  </tr>
-</table>
-<% end %>
+      <td>
+       <%= user.name %>
+      </td>
+     <!--マイページへのリンク-->
+      <td>
+       <%= link_to "Show", user_path(user.id) %>
+      </td>
+     </tr>
+     <% end %>
+    </tbody>
+   </table>
+  </div>
+ </div>
+</div>

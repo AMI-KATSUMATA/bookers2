@@ -13,3 +13,13 @@
  *= require_tree .
  *= require_self
  */
+ @import "bootstrap";
+ @import 'font-awesome-sprockets';
+ @import 'font-awesome';
+
+.body{
+ margin: 0;
+ padiing: 0;
+ box-sizing: border-box;
+ display: flex;
+}

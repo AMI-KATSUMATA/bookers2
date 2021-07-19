@@ -4,67 +4,89 @@
     <title>Bookers2Ver2</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <script src="https://kit.fontawesome.com/7fd8ce2d95.js" crossorigin="anonymous"></script>
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
   <body>
+   <header>
+    <nav class="navbar navbar-dark bg-dark">
+      <a class="navbar-brand" href="/">Bookers</a>
 
-    <header>
-      <nav class="navbar navbar-expand-lg navbar-light">
-     <% if user_signed_in? %>
-     <ul>
-     <li>
-       <a href="/">Bookers</a>
-     </li>
-     <!--マイページ画面へのリンク-->
-      <li>
-        <%= link_to "Home", user_path(current_user.id) %>
+      <% if user_signed_in? %>
+      <ul class="nav justify-content-end">
+       <!--マイページ画面へのリンク-->
+       <li class="nav-item">
+          <%= link_to user_path(current_user.id), class: 'nav-link text-light' do %>
+          <i class="fas fa-home"></i>Home
+          <% end %>
+       </li>
+       <!--ユーザー一覧画面へのリンク-->
+       <li class="nav-item">
+         <%= link_to users_path, class: 'nav-link text-light' do %>
+         <i class="fas fa-users"></i>Users
+         <% end %>
       </li>
-     <!--ユーザー一覧画面へのリンク-->
-      <li>
-        <%= link_to "Users", users_path %>
+     　<!--一覧画面へのリンク-->
+      <li class="nav-item">
+        <%= link_to books_path, class: 'nav-link text-light' do %>
+        <i class="fas fa-book-open"></i>Books
+        <% end %>
       </li>
-  　　<!--一覧画面へのリンク-->
-      <li>
-        <%= link_to "Books", books_path %>
-      </li>
-      <!--トップ画面へのリンク-->
-      <li>
-        <%= link_to "logout", destroy_user_session_path, method: :delete %>
+       <!--トップ画面へのリンク-->
+      <li class="nav-item">
+        <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-light' do %>
+        <i class="fas fa-sign-out-alt"></i>logout
+        <% end %>
       </li>
      </ul>
-    <% else %>
-    　<!--トップ画面へのリンク-->
-    　<li>
-        <%= link_to "Home", root_path %>
-      </li>
-      <!--アバウトページへのリンク-->
-      <li>
-        <%= link_to "About", homes_about_path %>
-      </li>
-    　<!--サインアップ画面へのリンク-->
-    　<li>
-        <%= link_to "sign up", new_user_registration_path %>
-      </li>
-      <!--ログイン画面へのリンク-->
-    　<li>
-        <%= link_to "login", user_session_path %>
-      </li>
 
-
-    <% end %>
-    </nav>
-    </header>
-
+     <% else %>
+     <ul class="nav justify-content-end">
+       <!--トップ画面へのリンク-->
+      <li class="nav-item">
+        <%= link_to root_path, class: 'nav-link text-light' do  %>
+        <i class="fas fa-home"></i>Home
+        <% end %>
+      </li>
+       <!--アバウトページへのリンク-->
+      <li class="nav-item">
+        <%= link_to home_about_path, class: 'nav-link text-light' do %>
+        <i class="fas fa-link"></i>About
+        <% end %>
+      </li>
+     　<!--サインアップ画面へのリンク-->
+      <li class="nav-item">
+        <%= link_to new_user_registration_path, class: 'nav-link text-light' do %>
+        <i class="fas fa-user-plus"></i>sign up
+        <% end %>
+      </li>
+       <!--ログイン画面へのリンク-->
+      <li class="nav-item">
+        <%= link_to user_session_path, class: 'nav-link text-light' do %>
+        <i class="fas fa-sign-in-alt"></i>login
+        <% end %>
+      </li>
+     </ul>
+     <% end %>
+   </nav>
+  </header>
+   <div class="text-success" >
     <% flash.each do |key, value| %>
      <%= content_tag(:div, value, class: "#{key}") %>
     <% end %>
+   </div>
 
     <%= yield %>
+ <div class="container mt-5" >
+  <div class="row">
+     <div class="mx-auto"
+   <footer class="p-auto">CopyRight Infratop.inc</footer>
+   </div>
+ </div>
+ </div>
 
-    <footer>CopyRight Infratop.inc</footer>
   </body>
 
 </html>

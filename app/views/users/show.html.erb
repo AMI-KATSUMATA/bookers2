@@ -1,44 +1,34 @@
-<div>User info
-   <%= attachment_image_tag @user, :profile_image, :fill, 100, 100, format: 'jpeg', fallback: "no_image.jpg" %>
-  <table>
-   <tr>
-    <th>name</th>
-    <td><%= @user.name %></td>
-   </tr>
-   <tr>
-    <th>introduction</th>
-    <td><%= @user.introduction %></td>
-   </tr>
-  </table>
+<div class="container px-5 px-sm-0">
+ <div class="row">
+ <!--部分テンプレ-->
+  <div class="col-md-3">
+   <%= render 'layouts/info', user: @user %>
+   <%= render 'layouts/new', new: @new %>
+  </div>
+  <div class="col-md-8 offset-md-1">
+ <!--ユーザー毎の投稿一覧-->
+   <h2>Books</h2>
+   <table class="table" >
+    <thead>
+     <tr>
+      <th>Title</th>
+      <th>Opinion</th>
+     </tr>
+    </thead>
+
+    <tbody>
+    <% @books.each do |book| %>
+     <tr>
+      <td><%= link_to book.title, book_path(book.id) %></td>
+      <td><%= book.body %></td>
+     </tr>
+    <% end %>
+    </tbody>
+   </table>
+   <%= paginate @books %>
+  </div>
  </div>
- 
-<!--プロフィール編集へのリンク-->
-<div>
- <%= link_to "プロフィール編集", edit_user_path(@user) %>
 </div>
 
-<!--新規投稿フォーム-->
-<h1>New Books</h1>
-<%= form_with model: @new, local:true do |f| %>
-  <h4>Title</h4>
-  <%= f.text_field :title %>
-  <h4>Opinion</h4>
-  <%= f.text_area :body %>
-  <%= f.submit 'Create Book' %>
-<% end %>
 
-<!--ユーザー毎の投稿一覧-->
-<% @books.each do |book| %>
-<table>Books
-<tr>
- <th>Title</th>
- <th>Opinion</th>
-</tr>
 
- <tr>
-  <td><%= link_to book.title, book_path(book.id) %></td>
-  <td><%= book.body %></td>
- </tr>
-</table>
-<% end %>
-<%= paginate @books %>

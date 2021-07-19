@@ -7,9 +7,9 @@ class BooksController < ApplicationController
   end
 
   def show
-   @user = User.find(current_user.id)
     @new = Book.new
     @book = Book.find(params[:id])
+    @user = User.find(@book.user_id)
   end
 
   def create
@@ -19,9 +19,9 @@ class BooksController < ApplicationController
   # 投稿詳細へリダイレクト
     redirect_to book_path(@new), notice: 'You have created book successfully.'
     else
-      @user = User.find(current_user.id)
-      @books = Book.all
-      render :index
+    @user = User.find(current_user.id)
+    @books = Book.all
+    render :index
     end
   end
 
@@ -33,7 +33,7 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
     if @book.update(book_params)
     # 投稿詳細ページへのリンク
-    redirect_to books_path(@book.id), notice: 'You have updated book successfully.'
+    redirect_to book_path(@book), notice: 'You have updated book successfully.'
     else
      render :edit
     end
