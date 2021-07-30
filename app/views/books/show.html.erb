@@ -31,6 +31,11 @@
         <%= @book.body %>
        </td>
 
+      <!--コメント数-->
+       <td>
+        <p>コメント数:<%= @book.book_comments.count %></p>
+       </td>
+
       <!--投稿編集・削除リンク-->
       <% if @book.user == current_user %>
        <td>
@@ -43,6 +48,40 @@
       </tr>
      </tbody>
     </table>
+   <!--コメント一覧-->
+    <div class="comments">
+     <% @book.book_comments.each do |book_comment| %>
+     <table>
+      <tr>
+       <td>
+        <%= link_to user_path(book_comment.user_id) do %>
+        <p><%= attachment_image_tag book_comment.user, :profile_image, :fill, 60, 60, format: 'jpeg', fallback: "no_image.jpg", size:'40x40' %></p>
+        <% end %><br/>
+        <%= link_to book_comment.user.name, user_path(book_comment.user_id) %>
+       </td>
+       <td>
+        <%= book_comment.comment %>
+       </td>
+       <td>
+       <!--削除-->
+        <% if book_comment.user == current_user %>
+        <div class="comment-delete">
+         <%= link_to "Destroy", book_book_comment_path(book_comment.book, book_comment),  method: :delete, class:'btn btn-danger text-light', type:'button', "data-confirm" => "本当に削除しますか？" %>
+        </div>
+       </td>
+      </tr>
+     </table>
+     <% end %>
+
+     <% end %>
+    </div>
+
+    <div class="new-comment">
+     <%= form_with(model:[@book, @book_comment], local: true) do |f| %>
+      <%= f.text_area :comment, placeholder: "コメント", size:"90" %><br/>
+      <%= f.submit "送信" %>
+     <% end %>
+    </div>
    </div>
  </div>
 </div>
