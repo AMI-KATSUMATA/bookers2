@@ -1,92 +1,108 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Bookers2Ver2</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <script src="https://kit.fontawesome.com/7fd8ce2d95.js" crossorigin="anonymous"></script>
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+ <head>
+  <title>Bookers2Ver2</title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <script src="https://kit.fontawesome.com/7fd8ce2d95.js" crossorigin="anonymous"></script>
+  <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+  <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+ </head>
 
-  <body>
-   <header>
-    <nav class="navbar navbar-dark bg-dark">
-      <a class="navbar-brand" href="/">Bookers</a>
+ <body>
+  <header>
+   <nav class="navbar navbar-dark bg-dark">
+    <a class="navbar-brand" href="/">Bookers</a>
 
-      <% if user_signed_in? %>
-      <ul class="nav justify-content-end">
-       <!--マイページ画面へのリンク-->
-       <li class="nav-item">
-          <%= link_to user_path(current_user.id), class: 'nav-link text-light' do %>
-          <i class="fas fa-home"></i>Home
-          <% end %>
-       </li>
-       <!--ユーザー一覧画面へのリンク-->
-       <li class="nav-item">
-         <%= link_to users_path, class: 'nav-link text-light' do %>
-         <i class="fas fa-users"></i>Users
-         <% end %>
-      </li>
-     　<!--一覧画面へのリンク-->
-      <li class="nav-item">
-        <%= link_to books_path, class: 'nav-link text-light' do %>
-        <i class="fas fa-book-open"></i>Books
-        <% end %>
-      </li>
-       <!--トップ画面へのリンク-->
-      <li class="nav-item">
-        <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-light' do %>
-        <i class="fas fa-sign-out-alt"></i>logout
-        <% end %>
-      </li>
-     </ul>
+    <% if user_signed_in? %>
+    <ul class="nav justify-content-end">
+    <!--マイページ画面へのリンク-->
+     <li class="nav-item">
+      <%= link_to user_path(current_user.id), class: 'nav-link text-light' do %>
+       <i class="fas fa-home"></i>Home
+      <% end %>
+     </li>
+    <!--ユーザー一覧画面へのリンク-->
+     <li class="nav-item">
+      <%= link_to users_path, class: 'nav-link text-light' do %>
+       <i class="fas fa-users"></i>Users
+      <% end %>
+     </li>
+    <!--一覧画面へのリンク-->
+     <li class="nav-item">
+      <%= link_to books_path, class: 'nav-link text-light' do %>
+       <i class="fas fa-book-open"></i>Books
+      <% end %>
+     </li>
+    <!--トップ画面へのリンク-->
+     <li class="nav-item">
+      <%= link_to destroy_user_session_path, method: :delete, class: 'nav-link text-light' do %>
+       <i class="fas fa-sign-out-alt"></i>logout
+      <% end %>
+     </li>
+    </ul>
 
-     <% else %>
-     <ul class="nav justify-content-end">
-       <!--トップ画面へのリンク-->
-      <li class="nav-item">
-        <%= link_to root_path, class: 'nav-link text-light' do  %>
-        <i class="fas fa-home"></i>Home
-        <% end %>
-      </li>
-       <!--アバウトページへのリンク-->
-      <li class="nav-item">
-        <%= link_to home_about_path, class: 'nav-link text-light' do %>
-        <i class="fas fa-link"></i>About
-        <% end %>
-      </li>
-     　<!--サインアップ画面へのリンク-->
-      <li class="nav-item">
-        <%= link_to new_user_registration_path, class: 'nav-link text-light' do %>
-        <i class="fas fa-user-plus"></i>sign up
-        <% end %>
-      </li>
-       <!--ログイン画面へのリンク-->
-      <li class="nav-item">
-        <%= link_to user_session_path, class: 'nav-link text-light' do %>
-        <i class="fas fa-sign-in-alt"></i>login
-        <% end %>
-      </li>
-     </ul>
-     <% end %>
+    <% else %>
+    <ul class="nav justify-content-end">
+    <!--トップ画面へのリンク-->
+     <li class="nav-item">
+      <%= link_to root_path, class: 'nav-link text-light' do  %>
+       <i class="fas fa-home"></i>Home
+      <% end %>
+     </li>
+    <!--アバウトページへのリンク-->
+     <li class="nav-item">
+      <%= link_to home_about_path, class: 'nav-link text-light' do %>
+       <i class="fas fa-link"></i>About
+      <% end %>
+     </li>
+    <!--サインアップ画面へのリンク-->
+     <li class="nav-item">
+      <%= link_to new_user_registration_path, class: 'nav-link text-light' do %>
+       <i class="fas fa-user-plus"></i>sign up
+      <% end %>
+     </li>
+    <!--ログイン画面へのリンク-->
+     <li class="nav-item">
+      <%= link_to user_session_path, class: 'nav-link text-light' do %>
+       <i class="fas fa-sign-in-alt"></i>login
+      <% end %>
+     </li>
+    </ul>
+   <% end %>
    </nav>
   </header>
-   <div class="text-success" >
-    <% flash.each do |key, value| %>
-     <%= content_tag(:div, value, class: "#{key}") %>
+   
+  <div class="text-success" >
+   <% flash.each do |key, value| %>
+    <%= content_tag(:div, value, class: "#{key}") %>
+   <% end %>
+  </div>
+  
+  <main>
+  <!--検索フォーム-->
+   <div class="text-center">
+    <% if user_signed_in? %>
+     <%= form_with url: search_path, local: true, method: :get do |f| %>
+      <%= f.text_field :word %>
+      <%= f.select :range, options_for_select([['User'], ['Book']]) %>
+      <%= f.select :search, options_for_select([["完全一致","perfect_match"], ["前方一致","forward_match"],  ["後方一致","backword_match"], ["部分一致","partial_match"]]) %>
+      <%= f.submit "検索" %>
+     <% end %>
     <% end %>
-   </div>
+  </div>
 
-    <%= yield %>
+  <%= yield %>
+ </main>
+ 
  <div class="container mt-5" >
   <div class="row">
-     <div class="mx-auto"
-   <footer class="p-auto">CopyRight Infratop.inc</footer>
+   <div class="mx-auto">
+    <footer class="p-auto">CopyRight Infratop.inc</footer>
    </div>
- </div>
+  </div>
  </div>
 
-  </body>
+</body>
 
 </html>

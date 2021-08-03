@@ -36,22 +36,22 @@
       </td>
       <!--フォロー数-->
       <td>
-      フォロー数:<%= user.followers.count %>
+       フォロー数:<%= user.followers.count %>
       </td>
       <!--フォロワー数-->
       <td>
-      フォロワー数:<%= user.followings.count %>
+       フォロワー数:<%= user.followings.count %>
       </td>
       <!--フォローボタン-->
       <td>
        <% if current_user != user %>
-         <% if user.followed_by?(current_user) %>
-           <p>
-            <%=link_to "フォローを外す", user_relationships_path(user), method: :delete %></p>
+        <% if user.followed_by?(current_user) %>
+         <p>
+          <%=link_to "フォローを外す", user_relationships_path(user), method: :delete %></p>
         <% else %>
-           <p><%=link_to "フォローする", user_relationships_path(user), method: :post %></p>
+         <p><%=link_to "フォローする", user_relationships_path(user), method: :post %></p>
+        <% end %>
        <% end %>
-      <% end %>
       </td>
      <!--マイページへのリンク-->
       <td>

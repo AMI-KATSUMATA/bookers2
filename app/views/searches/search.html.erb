@@ -1,0 +1,51 @@
+<% if @range == 'User' %>
+ <h2>User search for "<%= @word %>"</h2>
+ <table class="table">
+  <thead>
+   <tr>
+    <th>image</th>
+    <th>name</th>
+    <th></th>
+   </tr>
+  </thead>
+  <tbody>
+   <% @users.each do |user| %>
+    <tr>
+     <td><%= attachment_image_tag user, :profile_image, :fill, 50, 50, fallback: "no_image.jpg", size:'50x50' %></td>
+     <td><%= user.name%></td>
+     <td><%= link_to "Show", user_path(user) %></td>
+    </tr>
+   <% end %>
+   </tbody>
+  </table>
+
+ <% else %>
+  <h2>Book search for "<%= @word %>"</h2>
+　<table class="table">
+   <thead>
+    <tr>
+     <th></th>
+     <th>Title</th>
+     <th>Opinion</th>
+     <th></th>
+    </tr>
+   </thead>
+   <% @books.each do |book| %>
+   <tbody>
+    <tr>
+     <td>
+      <%= link_to(book.user) do %>
+      <%= attachment_image_tag book.user, :profile_image, :fill, 50, 50, fallback: "no_image.jpg", size:'50x50' %>
+      <% end %>
+     </td>
+     <td>
+      <%= link_to  book_path(book) do %>
+       <%= book.title %>
+      <% end %>
+     </td>
+     <td><%= book.body %></td>
+     </tr>
+    </tbody>
+    <% end %>
+   </table>
+<% end %>

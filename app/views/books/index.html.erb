@@ -49,19 +49,19 @@
       <!--いいね-->
       <td>
        <% if book.favorited_by?(current_user) %>
-       <p>
-         <%= link_to book_favorites_path(book), method: :delete, class: 'text-danger' do %>
-           ♥<%= book.favorites.count %>
-         <% end %>
-       </p>
+        <p>
+          <%= link_to book_favorites_path(book), method: :delete, class: 'text-danger' do %>
+            ♥<%= book.favorites.count %>
+          <% end %>
+        </p>
        <% else %>
-       <p>
-         <%= link_to book_favorites_path(book), method: :post do %>
-           ♡<%= book.favorites.count %>
-         <% end %>
-       </p>
-     <% end %>
-     </td>
+        <p>
+          <%= link_to book_favorites_path(book), method: :post do %>
+            ♡<%= book.favorites.count %>
+          <% end %>
+        </p>
+       <% end %>
+      </td>
       <!--コメント数-->
       <td>
        <p><%= link_to "コメント数:#{book.book_comments.count}", book_path(book.id) %></p>
@@ -70,6 +70,6 @@
     <% end %>
     </tbody>
    </table>
-   </div>
   </div>
  </div>
+</div>
